@@ -1,4 +1,5 @@
-import { ReactElement } from 'react';
+'use client'
+import { ReactElement, useState } from 'react';
 import { IconType } from 'react-icons';
 import { BsPlus, BsFillLightningFill, BsGearFill } from 'react-icons/bs';
 import { FaFire, FaPoo } from 'react-icons/fa';
@@ -24,14 +25,20 @@ const SideBar = () => {
   );
 };
 
-const SideBarIcon = ({ icon, text = 'tooltip 💡' }: SideBarItem) => (
-  <div className="sidebar-icon group">
-    {icon}
-    <span className="sidebar-tooltip group-hover:scale-100">
-      {text}
-    </span>
-  </div>
-);
+const SideBarIcon = ({ icon, text = 'tooltip' }: SideBarItem) => {
+  const [active, setActive] = useState(false)
+  const handleClick = () => {
+    setActive(!active)
+  }
+  return (
+    <div className={active ? "sidebar-icon group active:bg-green-900": "sidebar-icon group"} onClick={handleClick}>
+      {icon}
+      <span className="sidebar-tooltip group-hover:scale-100">
+        {text}
+      </span>
+    </div>
+  )
+};
 
 
 const Divider = () => <hr className="sidebar-hr" />;
